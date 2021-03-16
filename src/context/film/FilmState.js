@@ -6,6 +6,7 @@ import {
     FILMS_ERROR,
     SET_CURRENT_FILM,
     CLEAR_CURRENT_FILM,
+    DELETE_QUOTE
 } from '../types';
 
 const FilmState = (props) => {
@@ -49,6 +50,31 @@ const FilmState = (props) => {
         });
     };
 
+    const deleteQuote = async (language, film, quoteId) => {
+        try {
+            const updatedFilm = {
+                id: film.id,
+                title: film.title,
+                quotes: film.quotes.filter(x=>x.id !== quoteId)
+            }
+
+            await fetch(`${language}/films/${film.id}`, {
+                method: 'PUT',
+                body: JSON.stringify(updatedFilm),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            dispatch({
+                type: DELETE_QUOTE,
+                payload: updatedFilm
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
         <FilmContext.Provider
             value={{
@@ -58,6 +84,7 @@ const FilmState = (props) => {
                 getFilms,
                 setCurrent,
                 clearCurrent,
+                deleteQuote
             }}
         >
             {props.children}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import QuoteContext from '../../context/quote/QuoteContext';
 import PropTypes from 'prop-types';
 
@@ -7,23 +7,19 @@ const QuoteItem = ({ quote }) => {
 
     const { setCurrent } = quoteContext;
 
-    const onEdit = () => {
+    const onClick = () => {
         setCurrent(quote);
-    };
-
-    const onDelete = () => {
-        //setCurrent(film);
     };
 
     return (
         <li className="collection-item">
-            <a href="#!" className="secondary-content" onClick={onDelete}>
+            <a href="#delete-quote-modal" className="modal-trigger secondary-content" onClick={onClick}>
                 <i className="material-icons grey-text">delete</i>
             </a>
             <a
                 href="#edit-quote-modal"
                 className="modal-trigger secondary-content"
-                onClick={onEdit}
+                onClick={onClick}
             >
                 <i className="material-icons grey-text">edit</i>
             </a>

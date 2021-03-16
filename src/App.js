@@ -9,6 +9,7 @@ import Navbar from './components/layout/Navbar';
 import Films from './components/film/Films';
 import Quotes from './components/quotes/Quotes';
 import EditQuoteModal from './components/quotes/EditQuoteModal';
+import DeleteQuoteModal from './components/quotes/DeleteQuoteModal';
 
 const App = () => {
     useEffect(() => {
@@ -23,6 +24,7 @@ const App = () => {
                         <Navbar />
                         <div className="container">
                             <EditQuoteModal />
+                            <DeleteQuoteModal/>
                             <div className="row">
                                 <div className="col s6">
                                     <Films />

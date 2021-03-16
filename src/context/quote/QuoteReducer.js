@@ -24,6 +24,7 @@ const QuoteReducer = (state, action) => {
             return {
                 ...state,
                 quotes: state.quotes.filter((x) => x.id !== action.payload),
+                filteredQuotes: state.filteredQuotes.filter((x) => x.id !== action.payload),
             };
         case UPDATE_QUOTE:
             return {
