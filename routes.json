@@ -1,0 +1,10 @@
+{
+    "/en/quotes/:id": "/quotes_en/:id",
+    "/en/films/:id": "/films_en/:id",
+    "/fr/quotes/:id": "/quotes_fr/:id",
+    "/fr/films/:id": "/films_fr/:id",
+    "/en/quotes/": "/quotes_en/",
+    "/en/films/": "/films_en/",
+    "/fr/quotes/": "/quotes_fr/",
+    "/fr/films/": "/films_fr/"
+}

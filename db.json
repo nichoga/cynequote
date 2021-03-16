@@ -1,0 +1,78 @@
+{
+  "quotes_en": [
+    {
+      "id": 0,
+      "actor": "Al Pacino Petushok",
+      "quoteText": "Say hello to my little friend."
+    },
+    {
+      "id": 1,
+      "actor": "Judy Garland H123",
+      "quoteText": "Toto, I've got a feeling we're not in Kansas anymore."
+    },
+    {
+      "id": 2,
+      "actor": "Harrison Ford",
+      "quoteText": "May the force be with you."
+    },
+    {
+      "id": 3,
+      "actor": "Robert DeNiro",
+      "quoteText": "You talking to me?"
+    },
+    {
+      "id": 4,
+      "actor": "Renee Zelwegger",
+      "quoteText": "You had me at hello."
+    }
+  ],
+  "films_en": [
+    {
+      "id": 0,
+      "title": "Scarface",
+      "quotes": [
+        0
+      ]
+    },
+    {
+      "id": 1,
+      "title": "The Wizard of Oz",
+      "quotes": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Star Wars",
+      "quotes": [
+        2
+      ]
+    }
+  ],
+  "quotes_fr": [
+    {
+      "id": 0,
+      "actor": "Al Pacino",
+      "quoteText": "Dis bonjour à mon petit ami."
+    }
+  ],
+  "films_fr": [
+    {
+      "id": 0,
+      "title": "Scarface",
+      "quotes": []
+    }
+  ],
+  "languages": [
+    {
+      "id": 0,
+      "shortName": "en",
+      "name": "English"
+    },
+    {
+      "id": 1,
+      "shortName": "fr",
+      "name": "Francias"
+    }
+  ]
+}
