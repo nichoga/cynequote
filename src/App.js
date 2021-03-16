@@ -6,10 +6,12 @@ import LanguageState from './context/language/LanguageState';
 import FilmState from './context/film/FilmState';
 import QuoteState from './context/quote/QuoteState';
 import Navbar from './components/layout/Navbar';
+import AddButton from './components/layout/AddButton';
 import Films from './components/film/Films';
 import Quotes from './components/quotes/Quotes';
 import EditQuoteModal from './components/quotes/EditQuoteModal';
 import DeleteQuoteModal from './components/quotes/DeleteQuoteModal';
+import AddQuoteModal from './components/quotes/AddQuoteModal';
 
 const App = () => {
     useEffect(() => {
@@ -23,8 +25,10 @@ const App = () => {
                     <Fragment>
                         <Navbar />
                         <div className="container">
+                            <AddButton />
                             <EditQuoteModal />
-                            <DeleteQuoteModal/>
+                            <DeleteQuoteModal />
+                            <AddQuoteModal />
                             <div className="row">
                                 <div className="col s6">
                                     <Films />

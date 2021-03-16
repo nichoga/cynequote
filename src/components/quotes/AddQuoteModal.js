@@ -5,7 +5,7 @@ import LanguageContext from '../../context/language/LanguageContext';
 import FilmContext from '../../context/film/FilmContext';
 import FilmSelectOptions from '../film/FilmSelectOptions';
 
-const EditQuoteModal = () => {
+const AddQuoteModal = () => {
     const quoteContext = useContext(QuoteContext);
     const filmContext = useContext(FilmContext);
     const languageContext = useContext(LanguageContext);
@@ -14,37 +14,21 @@ const EditQuoteModal = () => {
     const { currentFilm } = filmContext;
 
     const [actor, setActor] = useState('');
-    const [quoteText, setQuoteText] = useState(false);
+    const [quoteText, setQuoteText] = useState('');
     const [film, setFilm] = useState('');
-
-    useEffect(() => {
-        if (currentQuote) {
-            setActor(currentQuote.actor);
-            setQuoteText(currentQuote.quoteText);
-        }
-    }, [currentQuote]);
-
-    useEffect(() => {
-        if (currentFilm) {
-            setFilm(currentFilm.id);
-        }
-    }, [currentFilm]);
 
     const onSubmit = () => {
         if (actor === '' || quoteText === '') {
             M.toast({ html: 'Please enter an Author and Quote Text' });
         } else {
             console.log('submit');
-            const updatedQuote = {
+            const newQuote = {
                 id: currentQuote.id,
                 actor,
                 quoteText,
             };
 
-            updateQuote(
-                languageContext.currentLanguage.shortName,
-                updatedQuote
-            );
+            updateQuote(languageContext.currentLanguage.shortName, newQuote);
 
             M.toast({ html: 'Quote updated' });
 
@@ -56,7 +40,7 @@ const EditQuoteModal = () => {
     };
 
     return (
-        <div id="edit-quote-modal" className="modal">
+        <div id="add-quote-modal" className="modal">
             <div className="modal-content">
                 <div className="row">
                     <div className="input-field">
@@ -113,4 +97,4 @@ const EditQuoteModal = () => {
     );
 };
 
-export default EditQuoteModal;
+export default AddQuoteModal;
