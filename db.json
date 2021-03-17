@@ -1,8 +1,13 @@
 {
   "quotes_en": [
     {
+      "id": 0,
+      "actor": "Al Pacino",
+      "quoteText": "Say hello to my little friend."
+    },
+    {
       "id": 1,
-      "actor": "Judy Garland H123",
+      "actor": "Judy Garland",
       "quoteText": "Toto, I've got a feeling we're not in Kansas anymore."
     },
     {
@@ -11,9 +16,14 @@
       "quoteText": "May the force be with you."
     },
     {
+      "id": 3,
+      "actor": "Robert DeNiro",
+      "quoteText": "You talking to me?"
+    },
+    {
       "id": 4,
       "actor": "Renee Zelwegger",
-      "quoteText": "You had me at hello. And goodbye!"
+      "quoteText": "You had me at hello."
     }
   ],
   "films_en": [
@@ -21,9 +31,7 @@
       "id": 0,
       "title": "Scarface",
       "quotes": [
-        0,
-        3,
-        4
+        0
       ]
     },
     {
@@ -39,6 +47,20 @@
       "quotes": [
         2
       ]
+    },
+    {
+      "id": 3,
+      "title": "Taxi Driver",
+      "quotes": [
+        3
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Jerry Maguire",
+      "quotes": [
+        4
+      ]
     }
   ],
   "quotes_fr": [
@@ -46,13 +68,63 @@
       "id": 0,
       "actor": "Al Pacino",
       "quoteText": "Dis bonjour à mon petit ami."
+    },
+    {
+      "id": 1,
+      "actor": "Judy Garland",
+      "quoteText": "Toto, j'ai le sentiment que nous ne sommes plus au Kansas."
+    },
+    {
+      "id": 2,
+      "actor": "Harrison Ford",
+      "quoteText": "Que la force soit avec toi."
+    },
+    {
+      "id": 3,
+      "actor": "Robert DeNiro",
+      "quoteText": "Tu me parle?"
+    },
+    {
+      "id": 4,
+      "actor": "Renee Zelwegger",
+      "quoteText": "Vous me avez eu à bonjour."
     }
   ],
   "films_fr": [
     {
       "id": 0,
       "title": "Scarface",
-      "quotes": []
+      "quotes": [
+        0
+      ]
+    },
+    {
+      "id": 1,
+      "title": "The Wizard of Oz",
+      "quotes": [
+        1
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Star Wars",
+      "quotes": [
+        2
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Taxi Driver",
+      "quotes": [
+        3
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Jerry Maguire",
+      "quotes": [
+        4
+      ]
     }
   ],
   "languages": [

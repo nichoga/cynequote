@@ -3,7 +3,8 @@ import {
     FILMS_ERROR,
     SET_CURRENT_FILM,
     CLEAR_CURRENT_FILM,
-    DELETE_QUOTE
+    DELETE_QUOTE,
+    ADD_QUOTE
 } from '../types';
 
 const FilmReducer = (state, action) => {
@@ -34,6 +35,12 @@ const FilmReducer = (state, action) => {
                 currentFilm: action.payload,
                 films: state.films.map(x=> x.id === action.payload.id ? action.payload : x)
             };
+        case ADD_QUOTE:
+            return {
+                ...state, 
+                films: state.films.map(x=> x.id === action.payload.id ? action.payload : x),
+                currentFilm: state.currentFilm === null ? null : action.payload
+            }
         default:
             return state;
     }

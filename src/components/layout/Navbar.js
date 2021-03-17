@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import LanguageContext from '../../context/language/LanguageContext';
-import QuoteContext from '../../context/quote/QuoteContext';
 
 const Navbar = () => {
     const languageContext = useContext(LanguageContext);
-    const quoteContext = useContext(QuoteContext);
 
     const {
         currentLanguage,
@@ -16,10 +14,6 @@ const Navbar = () => {
     useEffect(() => {
         getLanguages();
     }, []);
-
-    const onSetCurrentLanguage = (lang) => {
-        setCurrentLanguage(lang);
-    };
 
     return (
         <Fragment>

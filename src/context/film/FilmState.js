@@ -6,7 +6,8 @@ import {
     FILMS_ERROR,
     SET_CURRENT_FILM,
     CLEAR_CURRENT_FILM,
-    DELETE_QUOTE
+    DELETE_QUOTE,
+    ADD_QUOTE
 } from '../types';
 
 const FilmState = (props) => {
@@ -75,6 +76,33 @@ const FilmState = (props) => {
         }
     };
 
+    const addQuote = async (language, filmId, quoteId) => {
+        try {
+            const filmFromState = state.films.find(x => x.id === +filmId)
+
+            const updatedFilm = {
+                ...filmFromState
+            }
+
+            updatedFilm.quotes.push(quoteId);
+
+            await fetch(`${language}/films/${filmId}`, {
+                method: 'PUT',
+                body: JSON.stringify(updatedFilm),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            dispatch({
+                type: ADD_QUOTE,
+                payload: updatedFilm
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
     return (
         <FilmContext.Provider
             value={{
@@ -84,7 +112,8 @@ const FilmState = (props) => {
                 getFilms,
                 setCurrent,
                 clearCurrent,
-                deleteQuote
+                deleteQuote,
+                addQuote
             }}
         >
             {props.children}

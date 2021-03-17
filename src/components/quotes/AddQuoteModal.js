@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import QuoteContext from '../../context/quote/QuoteContext';
 import LanguageContext from '../../context/language/LanguageContext';
@@ -10,32 +10,31 @@ const AddQuoteModal = () => {
     const filmContext = useContext(FilmContext);
     const languageContext = useContext(LanguageContext);
 
-    const { currentQuote, updateQuote, filterQuotes } = quoteContext;
-    const { currentFilm } = filmContext;
+    const { addQuote } = quoteContext;
+    const { currentLanguage } = languageContext;
 
     const [actor, setActor] = useState('');
     const [quoteText, setQuoteText] = useState('');
     const [film, setFilm] = useState('');
 
-    const onSubmit = () => {
-        if (actor === '' || quoteText === '') {
-            M.toast({ html: 'Please enter an Author and Quote Text' });
+    const onSubmit = async () => {
+        if (actor === '' || quoteText === '' || film === '') {
+            M.toast({ html: 'Please enter an Author and Quote Text and Film' });
         } else {
-            console.log('submit');
             const newQuote = {
-                id: currentQuote.id,
                 actor,
                 quoteText,
             };
 
-            updateQuote(languageContext.currentLanguage.shortName, newQuote);
+            const res = await addQuote(currentLanguage.shortName, newQuote);
+            
+            filmContext.addQuote(currentLanguage.shortName, film, res.id);
 
-            M.toast({ html: 'Quote updated' });
+            M.toast({ html: 'Quote created' });
 
             setActor('');
             setQuoteText('');
-
-            // setAttention(false);
+            setFilm('');
         }
     };
 

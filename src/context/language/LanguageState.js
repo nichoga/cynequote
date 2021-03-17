@@ -22,7 +22,6 @@ const LanguageState = (props) => {
                 payload: data,
             });
 
-            console.log(data[0]);
             setCurrentLanguage(data[0]);
         } catch (error) {
             console.log(error);

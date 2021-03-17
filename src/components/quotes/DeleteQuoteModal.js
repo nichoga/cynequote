@@ -16,20 +16,20 @@ const EditQuoteModal = () => {
     const { currentFilm } = filmContext;
     const { currentLanguage } = languageContext;
 
-    useEffect(() => { 
-        if(currentQuote){
+    useEffect(() => {
+        if (currentQuote) {
             setQuote(currentQuote);
         }
-    }, [currentQuote])
+    }, [currentQuote]);
 
-    useEffect(() => { 
-        if(currentFilm){
+    useEffect(() => {
+        if (currentFilm) {
             setFilm(currentFilm);
         }
-    }, [currentFilm])
+    }, [currentFilm]);
 
     const onSubmit = () => {
-        deleteQuote(currentLanguage.shortName, quote.id)
+        deleteQuote(currentLanguage.shortName, quote.id);
         filmContext.deleteQuote(currentLanguage.shortName, film, quote.id);
         M.toast({ html: 'Quote deleted' });
     };
@@ -37,23 +37,22 @@ const EditQuoteModal = () => {
     return (
         <div id="delete-quote-modal" className="modal">
             <div className="modal-content">
-                <span>
-                    Are you sure you want to delete a quote?
-                </span>
+                <span>Are you sure you want to delete a quote?</span>
             </div>
             <div className="modal-footer">
+                <a
+                    href="#!"
+                    className="modal-close waves-effect blue btn"
+                    style={{ marginRight: '10px' }}
+                >
+                    No
+                </a>
                 <a
                     href="#!"
                     onClick={onSubmit}
                     className="modal-close waves-effect blue btn"
                 >
                     Yes
-                </a>
-                <a
-                    href="#!"
-                    className="modal-close waves-effect blue btn"
-                >
-                    No
                 </a>
             </div>
         </div>

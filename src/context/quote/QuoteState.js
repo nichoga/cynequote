@@ -16,6 +16,7 @@ const QuoteState = (props) => {
         quotes: null,
         filteredQuotes: null,
         currentQuote: null,
+        lastAddedQuote: null
     };
 
     const [state, dispatch] = useReducer(QuoteReducer, initialState);
@@ -65,12 +66,15 @@ const QuoteState = (props) => {
                     'Content-Type': 'application/json',
                 },
             });
+            
             const data = await res.json();
 
             dispatch({
                 type: ADD_QUOTE,
                 payload: data,
             });
+
+            return data;
         } catch (error) {
             console.error(error);
         }
@@ -116,6 +120,7 @@ const QuoteState = (props) => {
                 quotes: state.quotes,
                 currentQuote: state.currentQuote,
                 filteredQuotes: state.filteredQuotes,
+                lastAddedQuote: state.lastAddedQuote,
                 getQuotes,
                 setCurrent,
                 deleteQuote,

@@ -2,20 +2,15 @@ import React, { useState, useEffect, useContext } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import QuoteContext from '../../context/quote/QuoteContext';
 import LanguageContext from '../../context/language/LanguageContext';
-import FilmContext from '../../context/film/FilmContext';
-import FilmSelectOptions from '../film/FilmSelectOptions';
 
 const EditQuoteModal = () => {
     const quoteContext = useContext(QuoteContext);
-    const filmContext = useContext(FilmContext);
     const languageContext = useContext(LanguageContext);
 
-    const { currentQuote, updateQuote, filterQuotes } = quoteContext;
-    const { currentFilm } = filmContext;
+    const { currentQuote, updateQuote } = quoteContext;
 
     const [actor, setActor] = useState('');
     const [quoteText, setQuoteText] = useState(false);
-    const [film, setFilm] = useState('');
 
     useEffect(() => {
         if (currentQuote) {
@@ -23,12 +18,6 @@ const EditQuoteModal = () => {
             setQuoteText(currentQuote.quoteText);
         }
     }, [currentQuote]);
-
-    useEffect(() => {
-        if (currentFilm) {
-            setFilm(currentFilm.id);
-        }
-    }, [currentFilm]);
 
     const onSubmit = () => {
         if (actor === '' || quoteText === '') {
@@ -50,8 +39,6 @@ const EditQuoteModal = () => {
 
             setActor('');
             setQuoteText('');
-
-            // setAttention(false);
         }
     };
 

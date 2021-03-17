@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import FilmContext from '../../context/film/FilmContext';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,7 @@ const FilmItem = ({ film }) => {
     };
 
     return (
-        <a
+        <a href="!#"
             className={
                 'collection-item' +
                 (currentFilm?.id === film.id ? ' active blue' : '')

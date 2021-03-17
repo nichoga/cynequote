@@ -19,6 +19,7 @@ const QuoteReducer = (state, action) => {
             return {
                 ...state,
                 quotes: [...state.quotes, action.payload],
+                lastAddedQuote: action.payload
             };
         case DELETE_QUOTE:
             return {

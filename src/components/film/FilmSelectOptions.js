@@ -1,24 +1,16 @@
-import React, { useEffect, useContext } from 'react';
-import LanguageContext from '../../context/language/LanguageContext';
+import React, { useContext } from 'react';
 import FilmContext from '../../context/film/FilmContext';
 
 const FilmSelectOptions = () => {
-    const languageContext = useContext(LanguageContext);
     const filmContext = useContext(FilmContext);
 
-    const { films, getFilms } = filmContext;
-    const { currentLanguage } = languageContext;
+    const { films } = filmContext;
 
-    useEffect(() => {
-        if (currentLanguage !== null) {
-            getFilms(currentLanguage.shortName);
-        }
-    }, [currentLanguage]);
     return (
         films !== null &&
-        films.map((t) => (
-            <option key={t.id} value={t.id}>
-                {t.title}
+        films.map((film) => (
+            <option key={film.id} value={film.id}>
+                {film.title}
             </option>
         ))
     );
