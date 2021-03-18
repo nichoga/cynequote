@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+div.collection div:hover {
+  background-color: rgba(0,0,0,0.05);
+}

@@ -72,7 +72,7 @@ const useFilms = () => {
     );
 
     const init = useCallback(async () => {
-        if (!currentLanguage) return;
+        if (!lang) return;
 
         const [films, quotes] = await Promise.all([
             filmDataProvider.loadFilms(lang),
@@ -81,8 +81,8 @@ const useFilms = () => {
 
         setFilms(films);
         setQuotes(quotes);
-        //eslint-disable-next-line
-    }, [currentLanguage]);
+        
+    }, [lang]);
 
     return {
         films,
