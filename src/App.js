@@ -12,6 +12,8 @@ import Quotes from './components/quotes/Quotes';
 import EditQuoteModal from './components/quotes/EditQuoteModal';
 import DeleteQuoteModal from './components/quotes/DeleteQuoteModal';
 import AddQuoteModal from './components/quotes/AddQuoteModal';
+import { FilmContextProvider } from './data/useFilms';
+import { MainPage } from './components/pages/MainPage';
 
 const App = () => {
     useEffect(() => {
@@ -20,27 +22,22 @@ const App = () => {
 
     return (
         <LanguageState>
-            <FilmState>
-                <QuoteState>
-                    <Fragment>
-                        <Navbar />
-                        <div className="container">
-                            <AddButton />
-                            <EditQuoteModal />
-                            <DeleteQuoteModal />
-                            <AddQuoteModal />
-                            <div className="row">
-                                <div className="col s6">
-                                    <Films />
-                                </div>
-                                <div className="col s6">
-                                    <Quotes />
-                                </div>
+            <FilmContextProvider>
+                <FilmState>
+                    <QuoteState>
+                        <Fragment>
+                            <Navbar />
+                            <div className="container">
+                                <AddButton />
+                                <EditQuoteModal />
+                                <DeleteQuoteModal />
+                                <AddQuoteModal />
+                                <MainPage />
                             </div>
-                        </div>
-                    </Fragment>
-                </QuoteState>
-            </FilmState>
+                        </Fragment>
+                    </QuoteState>
+                </FilmState>
+            </FilmContextProvider>
         </LanguageState>
     );
 };
