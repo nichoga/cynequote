@@ -1,25 +1,20 @@
-import React, { useContext } from 'react';
-import QuoteContext from '../../context/quote/QuoteContext';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const QuoteItem = ({ quote }) => {
-    const quoteContext = useContext(QuoteContext);
-
-    const { setCurrent } = quoteContext;
-
-    const onClick = () => {
-        setCurrent(quote);
-    };
-
+const QuoteItem = ({ quote, setCurrent }) => {
     return (
         <li className="collection-item">
-            <a href="#delete-quote-modal" className="modal-trigger secondary-content" onClick={onClick}>
+            <a
+                href="#delete-quote-modal"
+                className="modal-trigger secondary-content"
+                onClick={() => setCurrent(quote)}
+            >
                 <i className="material-icons grey-text">delete</i>
             </a>
             <a
                 href="#edit-quote-modal"
                 className="modal-trigger secondary-content"
-                onClick={onClick}
+                onClick={() => setCurrent(quote)}
             >
                 <i className="material-icons grey-text">edit</i>
             </a>

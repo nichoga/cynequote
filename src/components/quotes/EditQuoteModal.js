@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import QuoteContext from '../../context/quote/QuoteContext';
-import LanguageContext from '../../context/language/LanguageContext';
+import { useFilmsContext } from '../../data/useFilms'
 
 const EditQuoteModal = () => {
-    const quoteContext = useContext(QuoteContext);
-    const languageContext = useContext(LanguageContext);
-
-    const { currentQuote, updateQuote } = quoteContext;
+    const { updateQuote, currentQuote } = useFilmsContext();
 
     const [actor, setActor] = useState('');
     const [quoteText, setQuoteText] = useState(false);
@@ -21,7 +17,7 @@ const EditQuoteModal = () => {
 
     const onSubmit = () => {
         if (actor === '' || quoteText === '') {
-            M.toast({ html: 'Please enter an Author and Quote Text' });
+            M.toast({ html: 'Please enter an Actor and Quote Text' });
         } else {
             console.log('submit');
             const updatedQuote = {
@@ -30,10 +26,7 @@ const EditQuoteModal = () => {
                 quoteText,
             };
 
-            updateQuote(
-                languageContext.currentLanguage.shortName,
-                updatedQuote
-            );
+            updateQuote(updatedQuote);
 
             M.toast({ html: 'Quote updated' });
 

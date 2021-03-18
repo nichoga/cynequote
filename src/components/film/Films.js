@@ -1,23 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import Preloader from '../layout/Preloader';
-import LanguageContext from '../../context/language/LanguageContext';
-import FilmContext from '../../context/film/FilmContext';
 import FilmItem from './FilmItem';
 
-const Films = () => {
-    const languageContext = useContext(LanguageContext);
-    const filmContext = useContext(FilmContext);
-
-    const { films, getFilms } = filmContext;
-    const { currentLanguage } = languageContext;
-
-    useEffect(() => {
-        if (currentLanguage !== null) {
-            getFilms(currentLanguage.shortName);
-        }
-    }, [currentLanguage]);
-
-    if (films === null) {
+const Films = ({ films, currentFilm, setCurrentFilm }) => {
+    if (!films) {
         return <Preloader />;
     }
 
@@ -26,10 +12,17 @@ const Films = () => {
             <div className="collection-header">
                 <h4 className="center">Films</h4>
             </div>
-            {films === null ? (
+            {!films.length ? (
                 <p className="center">No films to show...</p>
             ) : (
-                films?.map((film) => <FilmItem key={film.id} film={film} />)
+                films.map((film) => (
+                    <FilmItem
+                        currentFilm={currentFilm}
+                        onClick={() => setCurrentFilm(film)}
+                        key={film.id}
+                        film={film}
+                    />
+                ))
             )}
         </div>
     );

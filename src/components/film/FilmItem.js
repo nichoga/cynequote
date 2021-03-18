@@ -1,17 +1,10 @@
-import React, { useContext } from 'react';
-import FilmContext from '../../context/film/FilmContext';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-const FilmItem = ({ film }) => {
-    const filmContext = useContext(FilmContext);
-    const { setCurrent, currentFilm } = filmContext;
-
-    const onClick = () => {
-        setCurrent(film);
-    };
+const FilmItem = ({ film, onClick, currentFilm }) => {
 
     return (
-        <a href="!#"
+        <div
             className={
                 'collection-item' +
                 (currentFilm?.id === film.id ? ' active blue' : '')
@@ -19,7 +12,7 @@ const FilmItem = ({ film }) => {
             onClick={onClick}
         >
             {film.title}
-        </a>
+        </div>
     );
 };
 

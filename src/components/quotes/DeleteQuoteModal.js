@@ -1,36 +1,13 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import QuoteContext from '../../context/quote/QuoteContext';
-import LanguageContext from '../../context/language/LanguageContext';
-import FilmContext from '../../context/film/FilmContext';
+import { useFilmsContext } from '../../data/useFilms'
 
 const EditQuoteModal = () => {
-    const quoteContext = useContext(QuoteContext);
-    const filmContext = useContext(FilmContext);
-    const languageContext = useContext(LanguageContext);
-
-    const [film, setFilm] = useState(null);
-    const [quote, setQuote] = useState(null);
-
-    const { currentQuote, deleteQuote } = quoteContext;
-    const { currentFilm } = filmContext;
-    const { currentLanguage } = languageContext;
-
-    useEffect(() => {
-        if (currentQuote) {
-            setQuote(currentQuote);
-        }
-    }, [currentQuote]);
-
-    useEffect(() => {
-        if (currentFilm) {
-            setFilm(currentFilm);
-        }
-    }, [currentFilm]);
+    const { removeQuote } = useFilmsContext();
 
     const onSubmit = () => {
-        deleteQuote(currentLanguage.shortName, quote.id);
-        filmContext.deleteQuote(currentLanguage.shortName, film, quote.id);
+        removeQuote();
+
         M.toast({ html: 'Quote deleted' });
     };
 
