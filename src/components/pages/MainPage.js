@@ -1,20 +1,55 @@
-import { useState } from "react"
-import Films from "../film/Films"
-import Quotes from "../quotes/Quotes"
+import { useContext, useEffect, useMemo } from 'react';
+import Films from '../film/Films';
+import Quotes from '../quotes/Quotes';
+import { useFilmsContext } from '../../data/useFilms';
+import languageContext from '../../context/language/LanguageContext';
 
 export const MainPage = () => {
+    const {
+        films,
+        init,
+        quotes,
+        currentFilm,
+        setCurrentFilm,
+        setCurrentQuote,
+    } = useFilmsContext();
 
-    const [currentFilm, setCurrentFilm] = useState()
+    const { currentLanguage } = useContext(languageContext);
 
-    return (<div className="row">
-        <div className="col s6">
-            <Films
-                currentFilm={currentFilm}
-                setCurrentFilm={setCurrentFilm}
-            />
+    useEffect(() => {
+        if (!currentLanguage) {
+            return;
+        }
+        init();
+    }, [currentLanguage, init]);
+
+    const currentQuotes = useMemo(() => {
+        if (!currentFilm || !quotes) {
+            return;
+        }
+
+        return quotes.filter((a) => currentFilm.quotes.indexOf(a.id) !== -1);
+    }, [currentFilm, quotes]);
+
+    return (
+        <div className="row">
+            <div className="col s6">
+                <Films
+                    films={films}
+                    currentFilm={currentFilm}
+                    setCurrentFilm={setCurrentFilm}
+                />
+            </div>
+            <div className="col s6">
+                {!currentFilm || !currentQuotes ? (
+                    <p className="center">Select film to see quotes...</p>
+                ) : (
+                    <Quotes
+                        quotes={currentQuotes}
+                        setCurrent={setCurrentQuote}
+                    />
+                )}
+            </div>
         </div>
-        <div className="col s6">
-            <Quotes currentFilm={currentFilm} />
-        </div>
-    </div>)
-}
+    );
+};

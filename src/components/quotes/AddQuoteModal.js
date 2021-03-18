@@ -1,24 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import QuoteContext from '../../context/quote/QuoteContext';
-import LanguageContext from '../../context/language/LanguageContext';
-import FilmContext from '../../context/film/FilmContext';
-import FilmSelectOptions from '../film/FilmSelectOptions';
+import { useFilmsContext } from '../../data/useFilms';
 
 const AddQuoteModal = () => {
-    const quoteContext = useContext(QuoteContext);
-    const filmContext = useContext(FilmContext);
-    const languageContext = useContext(LanguageContext);
-
-    const { addQuote } = quoteContext;
-    const { currentLanguage } = languageContext;
+    const { addQuote, films } = useFilmsContext();
 
     const [actor, setActor] = useState('');
     const [quoteText, setQuoteText] = useState('');
-    const [film, setFilm] = useState('');
+    const [filmId, setFilmId] = useState('');
 
     const onSubmit = async () => {
-        if (actor === '' || quoteText === '' || film === '') {
+        if (actor === '' || quoteText === '' || filmId === '') {
             M.toast({ html: 'Please enter an Author and Quote Text and Film' });
         } else {
             const newQuote = {
@@ -26,15 +18,13 @@ const AddQuoteModal = () => {
                 quoteText,
             };
 
-            const res = await addQuote(currentLanguage.shortName, newQuote);
-            
-            filmContext.addQuote(currentLanguage.shortName, film, res.id);
+            await addQuote(filmId, newQuote);
 
             M.toast({ html: 'Quote created' });
 
             setActor('');
             setQuoteText('');
-            setFilm('');
+            setFilmId('');
         }
     };
 
@@ -71,14 +61,18 @@ const AddQuoteModal = () => {
                     <div className="input-field">
                         <select
                             name="film"
-                            value={film}
+                            value={filmId}
                             className="browser-default"
-                            onChange={(e) => setFilm(e.target.value)}
+                            onChange={(e) => setFilmId(e.target.value)}
                         >
                             <option value="" disabled>
                                 Select Film
                             </option>
-                            <FilmSelectOptions />
+                            {films?.map((a) => (
+                                <option key={a.id} value={a.id}>
+                                    {a.title}
+                                </option>
+                            ))}
                         </select>
                     </div>
                 </div>

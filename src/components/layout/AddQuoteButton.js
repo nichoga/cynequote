@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddButton = () => {
+const AddQuoteButton = () => {
     return (
         <div className="fixed-action-btn">
             <a
@@ -13,4 +13,4 @@ const AddButton = () => {
     );
 };
 
-export default AddButton;
+export default AddQuoteButton;

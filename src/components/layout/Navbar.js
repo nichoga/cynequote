@@ -13,6 +13,7 @@ const Navbar = () => {
 
     useEffect(() => {
         getLanguages();
+        //eslint-disable-next-line
     }, []);
 
     return (
