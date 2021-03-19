@@ -1,9 +1,9 @@
 import { createContext, useCallback, useContext, useState } from 'react';
-import LanguageContext from '../context/language/LanguageContext';
 import { filmDataProvider } from './filmDataProvider';
+import { useLanguageContext } from '../language/useLanguage';
 
 const useFilms = () => {
-    const { currentLanguage } = useContext(LanguageContext);
+    const { currentLanguage } = useLanguageContext();
 
     const [films, setFilms] = useState();
     const [quotes, setQuotes] = useState();
@@ -87,11 +87,11 @@ const useFilms = () => {
     return {
         films,
         quotes,
+        currentFilm,
+        currentQuote,
         addQuote,
         removeQuote,
         init,
-        currentFilm,
-        currentQuote,
         setCurrentFilm,
         setCurrentQuote,
         updateQuote,

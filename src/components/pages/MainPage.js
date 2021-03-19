@@ -1,8 +1,8 @@
-import { useContext, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import Films from '../film/Films';
 import Quotes from '../quotes/Quotes';
-import { useFilmsContext } from '../../data/useFilms';
-import languageContext from '../../context/language/LanguageContext';
+import { useFilmsContext } from '../../data/film/useFilms';
+import { useLanguageContext } from '../../data/language/useLanguage';
 
 export const MainPage = () => {
     const {
@@ -14,7 +14,7 @@ export const MainPage = () => {
         setCurrentQuote,
     } = useFilmsContext();
 
-    const { currentLanguage } = useContext(languageContext);
+    const { currentLanguage } = useLanguageContext();
 
     useEffect(() => {
         if (!currentLanguage) {

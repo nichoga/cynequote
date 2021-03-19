@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
-import { useFilmsContext } from '../../data/useFilms';
+import { useFilmsContext } from '../../data/film/useFilms';
 
 const AddQuoteModal = () => {
     const { addQuote, films } = useFilmsContext();

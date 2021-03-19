@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, Fragment } from 'react';
-import LanguageContext from '../../context/language/LanguageContext';
+import React, { useEffect, Fragment } from 'react';
+import { useLanguageContext } from '../../data/language/useLanguage';
 
 const Navbar = () => {
-    const languageContext = useContext(LanguageContext);
 
     const {
         currentLanguage,
         setCurrentLanguage,
         getLanguages,
         languages,
-    } = languageContext;
+    } = useLanguageContext();
 
     useEffect(() => {
         getLanguages();
@@ -19,7 +18,7 @@ const Navbar = () => {
     return (
         <Fragment>
             <ul id="languagesDropdown" className="dropdown-content">
-                {languages === null ? (
+                {!languages ? (
                     <div>Loading...</div>
                 ) : (
                     languages.map((lang) => (
@@ -46,7 +45,7 @@ const Navbar = () => {
                                 href="#!"
                                 data-target="languagesDropdown"
                             >
-                                {currentLanguage === null
+                                {!currentLanguage
                                     ? 'not set'
                                     : currentLanguage.name}
                                 <i className="material-icons right">
