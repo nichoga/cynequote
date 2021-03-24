@@ -1,4 +1,4 @@
-import { useEffect, Fragment } from 'react';
+import { useEffect, Fragment, FC } from 'react';
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
@@ -11,7 +11,7 @@ import { FilmContextProvider } from './data/film/useFilms';
 import { LanguageContextProvider } from './data/language/useLanguage';
 import MainPage from './components/pages/MainPage';
 
-const App = () => {
+const App : FC = () => {
     useEffect(() => {
         M.AutoInit();
     }, []);
