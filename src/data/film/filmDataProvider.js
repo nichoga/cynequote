@@ -13,9 +13,9 @@ export const filmDataProvider = {
             },
         });
 
-        const updatedQuote = await res.json();
+        const newQuote = await res.json();
 
-        const quoteId = updatedQuote.id;
+        const quoteId = newQuote.id;
 
         res = await fetch(`${language}/films/${filmId}`);
 
@@ -36,7 +36,7 @@ export const filmDataProvider = {
 
         return {
             film: await res.json(),
-            quote: updatedQuote,
+            quote: newQuote,
         };
     },
     loadQuotes: async (language) => {

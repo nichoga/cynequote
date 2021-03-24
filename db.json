@@ -26,9 +26,19 @@
       "quoteText": "You had me at hello."
     },
     {
-      "actor": "test",
-      "quoteText": "test",
+      "actor": "Al Pacino",
+      "quoteText": "If you get all tangled up, just tango on.",
       "id": 5
+    },
+    {
+      "actor": "Johny Cash",
+      "quoteText": "My ass is my gold",
+      "id": 6
+    },
+    {
+      "actor": "Madison Mars",
+      "quoteText": "Gotta new vibe on this",
+      "id": 7
     }
   ],
   "films_en": [
@@ -37,7 +47,9 @@
       "title": "Scarface",
       "quotes": [
         0,
-        5
+        5,
+        6,
+        7
       ]
     },
     {
@@ -142,7 +154,7 @@
     {
       "id": 1,
       "shortName": "fr",
-      "name": "Francias"
+      "name": "Francais"
     }
   ]
 }

@@ -4,7 +4,7 @@ import Quotes from '../quotes/Quotes';
 import { useFilmsContext } from '../../data/film/useFilms';
 import { useLanguageContext } from '../../data/language/useLanguage';
 
-export const MainPage = () => {
+const MainPage = () => {
     const {
         films,
         init,
@@ -53,3 +53,5 @@ export const MainPage = () => {
         </div>
     );
 };
+
+export default MainPage;

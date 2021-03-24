@@ -19,7 +19,6 @@ const EditQuoteModal = () => {
         if (actor === '' || quoteText === '') {
             M.toast({ html: 'Please enter an Actor and Quote Text' });
         } else {
-            console.log('submit');
             const updatedQuote = {
                 id: currentQuote.id,
                 actor,
@@ -43,6 +42,7 @@ const EditQuoteModal = () => {
                         <input
                             type="text"
                             name="actor"
+                            id="actor"
                             value={actor}
                             onChange={(e) => setActor(e.target.value)}
                         />
@@ -56,6 +56,7 @@ const EditQuoteModal = () => {
                         <input
                             type="text"
                             name="quoteText"
+                            id="quoteText"
                             value={quoteText}
                             onChange={(e) => setQuoteText(e.target.value)}
                         />
@@ -70,8 +71,9 @@ const EditQuoteModal = () => {
                     href="#!"
                     onClick={onSubmit}
                     className="modal-close waves-effect blue btn"
+                    data-testid="editQuoteSubmit"
                 >
-                    Enter
+                    Save quote
                 </a>
             </div>
         </div>

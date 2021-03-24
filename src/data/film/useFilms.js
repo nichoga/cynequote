@@ -30,7 +30,7 @@ const useFilms = () => {
                 return prevFilms.map((x) => (x.id === film.id ? film : x));
             });
 
-            if (currentFilm.id === film.id) {
+            if (currentFilm?.id === film.id) {
                 setCurrentFilm(film);
             }
         },

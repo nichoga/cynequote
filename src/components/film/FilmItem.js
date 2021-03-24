@@ -9,6 +9,7 @@ const FilmItem = ({ film, onClick, currentFilm }) => {
                 'collection-item' +
                 (currentFilm?.id === film.id ? ' active blue' : '')
             }
+            data-testid={`film_${film.id}`}
             onClick={onClick}
         >
             {film.title}

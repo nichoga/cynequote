@@ -20,12 +20,14 @@ const EditQuoteModal = () => {
                 <a
                     href="#!"
                     className="modal-close waves-effect blue btn"
+                    data-testid="deleteQuoteCancel"
                     style={{ marginRight: '10px' }}
                 >
                     No
                 </a>
                 <a
                     href="#!"
+                    data-testid="deleteQuoteSubmit"
                     onClick={onSubmit}
                     className="modal-close waves-effect blue btn"
                 >

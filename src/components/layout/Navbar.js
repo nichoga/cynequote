@@ -2,7 +2,6 @@ import React, { useEffect, Fragment } from 'react';
 import { useLanguageContext } from '../../data/language/useLanguage';
 
 const Navbar = () => {
-
     const {
         currentLanguage,
         setCurrentLanguage,
@@ -26,6 +25,9 @@ const Navbar = () => {
                             <a
                                 href="#!"
                                 onClick={() => setCurrentLanguage(lang)}
+                                data-testid={
+                                    `languageSelector_` + lang.shortName
+                                }
                             >
                                 {lang.name}
                             </a>
@@ -44,6 +46,7 @@ const Navbar = () => {
                                 className="dropdown-trigger"
                                 href="#!"
                                 data-target="languagesDropdown"
+                                data-testid="currentLanguage"
                             >
                                 {!currentLanguage
                                     ? 'not set'

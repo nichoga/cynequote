@@ -35,11 +35,12 @@ const AddQuoteModal = () => {
                     <div className="input-field">
                         <input
                             type="text"
-                            name="actor"
+                            name="addQuoteActor"
+                            id="addQuoteActor"
                             value={actor}
                             onChange={(e) => setActor(e.target.value)}
                         />
-                        <label htmlFor="actor" className="active">
+                        <label htmlFor="addQuoteActor" className="active">
                             Actor
                         </label>
                     </div>
@@ -48,11 +49,12 @@ const AddQuoteModal = () => {
                     <div className="input-field">
                         <input
                             type="text"
-                            name="quoteText"
+                            name="addQuoteText"
+                            id="addQuoteText"
                             value={quoteText}
                             onChange={(e) => setQuoteText(e.target.value)}
                         />
-                        <label htmlFor="quoteText" className="active">
+                        <label htmlFor="addQuoteText" className="active">
                             Quote Text
                         </label>
                     </div>
@@ -61,6 +63,7 @@ const AddQuoteModal = () => {
                     <div className="input-field">
                         <select
                             name="film"
+                            data-testid="addQuoteFilmSelector"
                             value={filmId}
                             className="browser-default"
                             onChange={(e) => setFilmId(e.target.value)}
@@ -69,7 +72,7 @@ const AddQuoteModal = () => {
                                 Select Film
                             </option>
                             {films?.map((a) => (
-                                <option key={a.id} value={a.id}>
+                                <option key={a.id} value={a.id} >
                                     {a.title}
                                 </option>
                             ))}
@@ -81,6 +84,7 @@ const AddQuoteModal = () => {
                 <a
                     href="#!"
                     onClick={onSubmit}
+                    data-testid="addQuoteSubmit"
                     className="modal-close waves-effect blue btn"
                 >
                     Enter

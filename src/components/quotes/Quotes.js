@@ -3,7 +3,7 @@ import QuoteItem from './QuoteItem';
 
 const Quotes = ({ quotes, setCurrent }) => {
     return (
-        <ul className="collection with-header">
+        <ul className="collection with-header" id="quotesList">
             <li className="collection-header">
                 <h4 className="center">Quotes</h4>
             </li>

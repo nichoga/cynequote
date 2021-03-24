@@ -9,16 +9,16 @@ import DeleteQuoteModal from './components/quotes/DeleteQuoteModal';
 import AddQuoteModal from './components/quotes/AddQuoteModal';
 import { FilmContextProvider } from './data/film/useFilms';
 import { LanguageContextProvider } from './data/language/useLanguage';
-import { MainPage } from './components/pages/MainPage';
+import MainPage from './components/pages/MainPage';
 
 const App = () => {
     useEffect(() => {
         M.AutoInit();
-    });
+    }, []);
 
     return (
         <LanguageContextProvider>
-            <FilmContextProvider>
+             <FilmContextProvider>
                 <Fragment>
                     <Navbar />
                     <div className="container">
@@ -29,7 +29,7 @@ const App = () => {
                         <MainPage />
                     </div>
                 </Fragment>
-            </FilmContextProvider>
+            </FilmContextProvider> 
         </LanguageContextProvider>
     );
 };

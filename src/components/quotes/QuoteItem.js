@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 const QuoteItem = ({ quote, setCurrent }) => {
     return (
-        <li className="collection-item">
+        <li className="collection-item" data-testid={`quote_${quote.id}`}>
             <a
                 href="#delete-quote-modal"
+                data-testid={`deleteQuote_${quote.id}`}
                 className="modal-trigger secondary-content"
                 onClick={() => setCurrent(quote)}
             >
@@ -13,6 +14,7 @@ const QuoteItem = ({ quote, setCurrent }) => {
             </a>
             <a
                 href="#edit-quote-modal"
+                data-testid={`editQuote_${quote.id}`}
                 className="modal-trigger secondary-content"
                 onClick={() => setCurrent(quote)}
             >
@@ -20,9 +22,14 @@ const QuoteItem = ({ quote, setCurrent }) => {
             </a>
 
             <div>
-                <span>Actor: {quote.actor}</span>
-                <br />
-                <span>Text: {quote.quoteText}</span>
+                <div className="row">
+                    <span className="col s1">Actor:</span>
+                    <span className="col s6"> {quote.actor}</span>
+                </div>
+                <div className="row">
+                    <span className="col s1">Text:</span>
+                    <span className="col s6"> {quote.quoteText}</span>
+                </div>
             </div>
         </li>
     );
