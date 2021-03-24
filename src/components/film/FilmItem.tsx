@@ -1,7 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { Film } from '../../data/models/Film';
 
-const FilmItem = ({ film, onClick, currentFilm }) => {
+type Props = {
+    film: Film,
+    currentFilm?: Film,
+    onClick: () => void
+}
+
+const FilmItem : FC<Props> = ({ film, onClick, currentFilm }) => {
 
     return (
         <div
@@ -15,10 +21,6 @@ const FilmItem = ({ film, onClick, currentFilm }) => {
             {film.title}
         </div>
     );
-};
-
-FilmItem.propTypes = {
-    film: PropTypes.object.isRequired,
 };
 
 export default FilmItem;

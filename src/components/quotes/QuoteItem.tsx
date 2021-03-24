@@ -1,7 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { Quote } from '../../data/models/Quote';
 
-const QuoteItem = ({ quote, setCurrent }) => {
+type Props = {
+    quote: Quote,
+    setCurrent: (quote: Quote) => void
+}
+
+const QuoteItem : FC<Props> = ({ quote, setCurrent }) => {
     return (
         <li className="collection-item" data-testid={`quote_${quote.id}`}>
             <a
@@ -33,10 +38,6 @@ const QuoteItem = ({ quote, setCurrent }) => {
             </div>
         </li>
     );
-};
-
-QuoteItem.propTypes = {
-    quote: PropTypes.object.isRequired,
 };
 
 export default QuoteItem;

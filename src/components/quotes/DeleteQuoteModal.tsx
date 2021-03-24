@@ -1,8 +1,8 @@
-import React from 'react';
+import { FC } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { useFilmsContext } from '../../data/film/useFilms'
 
-const EditQuoteModal = () => {
+const EditQuoteModal : FC = () => {
     const { removeQuote } = useFilmsContext();
 
     const onSubmit = () => {

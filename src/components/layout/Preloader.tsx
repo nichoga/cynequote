@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from "react";
 
-const Preloader = () => {
+const Preloader: FC = () => {
     return (
         <div className="progress blue lighten-4">
             <div className="indeterminate blue"></div>

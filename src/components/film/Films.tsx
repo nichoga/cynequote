@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Film } from '../../data/models/Film';
 import Preloader from '../layout/Preloader';
 import FilmItem from './FilmItem';
 
-const Films = ({ films, currentFilm, setCurrentFilm }) => {
+type Props = {
+    films?: Film[],
+    currentFilm?: Film,
+    setCurrentFilm: (film: Film) => void
+}
+
+const Films : FC<Props> = ({ films, currentFilm, setCurrentFilm }) => {
     if (!films) {
         return <Preloader />;
     }

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { useFilmsContext } from '../../data/film/useFilms';
 
-const AddQuoteModal = () => {
+const AddQuoteModal : FC = () => {
     const { addQuote, films } = useFilmsContext();
 
     const [actor, setActor] = useState('');
@@ -29,7 +29,7 @@ const AddQuoteModal = () => {
     };
 
     return (
-        <div id="add-quote-modal" className="modal">
+        <div id="add-quote-modal" data-testid="add-quote-modal" className="modal">
             <div className="modal-content">
                 <div className="row">
                     <div className="input-field">

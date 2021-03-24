@@ -1,10 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import Films from '../film/Films';
 import Quotes from '../quotes/Quotes';
 import { useFilmsContext } from '../../data/film/useFilms';
 import { useLanguageContext } from '../../data/language/useLanguage';
+import { Quote } from '../../data/models/Quote'
 
-const MainPage = () => {
+const MainPage: FC = () => {
     const {
         films,
         init,
@@ -28,7 +29,7 @@ const MainPage = () => {
             return;
         }
 
-        return quotes.filter((a) => currentFilm.quotes.indexOf(a.id) !== -1);
+        return quotes.filter((a: Quote) => currentFilm.quotes.indexOf(a.id!) !== -1);
     }, [currentFilm, quotes]);
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, ReactElement } from 'react';
 import {
     act,
     fireEvent,
@@ -16,12 +16,21 @@ import { FilmContextProvider } from '../../../data/film/useFilms';
 import { filmDataProvider } from '../../../data/film/filmDataProvider';
 import { LanguageContextProvider } from '../../../data/language/useLanguage';
 import { languageDataProvider } from '../../../data/language/languageDataProvider';
-import * as db from '../../../../db.json';
 import EditQuoteModal from '../EditQuoteModal';
 import AddQuoteButton from '../../layout/AddQuoteButton';
 import AddQuoteModal from '../AddQuoteModal';
+import {
+    films,
+    quotes,
+    updatedQuote,
+    filmWithAddedQuote,
+    filmWithDeletedQuote,
+    newQuote,
+    quoteFromDb,
+    languages
+} from '../__mocks__/MockData';
 
-const Providers = ({ children }) => {
+const Providers : FC = ({ children }) => {
     return (
         <LanguageContextProvider>
             <FilmContextProvider>{children}</FilmContextProvider>
@@ -29,7 +38,7 @@ const Providers = ({ children }) => {
     );
 };
 
-const customRender = (ui, options) =>
+const customRender = (ui: ReactElement, options?: any) =>
     render(ui, { wrapper: Providers, ...options });
 
 const mockGetLanguages = (languageDataProvider.getLanguages = jest.fn());
@@ -39,54 +48,8 @@ const mockDeleteQuote = (filmDataProvider.removeQuote = jest.fn());
 const mockEditQuote = (filmDataProvider.updateQuote = jest.fn());
 const mockAddQuote = (filmDataProvider.addQuote = jest.fn());
 
-const films = [
-    {
-        id: 0,
-        title: 'Scarface',
-        quotes: [0, 5],
-    },
-    {
-        id: 1,
-        title: 'The Wizard of Oz',
-        quotes: [1],
-    },
-];
-
-const quoteFromDb = {
-    id: 5,
-    actor: 'Al Pacino',
-    quoteText: 'If you get all tangled up, just tango on.',
-};
-
-const quotes = [quoteFromDb];
-
-const filmWithDeletedQuote = {
-    id: 0,
-    title: 'Scarface',
-    quotes: [0],
-};
-
-const filmWithAddedQuote = {
-    id: 0,
-    title: 'Scarface',
-    quotes: [0, 5, 6],
-};
-
-const newQuote = {
-    id: 6,
-    actor: 'Robert Loggia',
-    quoteText:
-        "You're gonna find, if you stay loyal in this business, you're gonna move up. You're gonna move up fast.",
-};
-
-const updatedQuote = {
-    id: 5,
-    actor: 'Tony Montana',
-    quoteText: 'You want to play games? Okay, I play with you.',
-};
-
 beforeEach(async () => {
-    mockGetLanguages.mockResolvedValueOnce(db.languages);
+    mockGetLanguages.mockResolvedValueOnce(languages);
     mockLoadFilms.mockResolvedValueOnce(films);
 
     mockDeleteQuote.mockResolvedValueOnce(filmWithDeletedQuote);
@@ -208,7 +171,9 @@ describe('quotes editing modals', () => {
             })
         );
 
-        const quotesList = document.querySelector('#quotesList');
+        const quotesList = screen.getByTestId('quotesList');
+
+        expect(quotesList).not.toBeNull()
 
         // quote is on page
         expect(
@@ -226,10 +191,13 @@ describe('quotes editing modals', () => {
 
         expect(screen.getByText('Save quote')).toBeInTheDocument();
 
-        const editQuoteModal = document.querySelector('#edit-quote-modal');
+        const editQuoteModal = screen.getByTestId('edit-quote-modal');
+
+        // edit quote modal is rendered
+        expect(editQuoteModal).toBeInTheDocument();
 
         // quote text changed
-        const quoteTextInput = getByLabelText(editQuoteModal, 'Quote Text');
+        const quoteTextInput = getByLabelText(editQuoteModal, 'Quote Text') as HTMLInputElement;
 
         expect(quoteTextInput.value).toBe(quoteFromDb.quoteText);
 
@@ -240,7 +208,7 @@ describe('quotes editing modals', () => {
         expect(quoteTextInput.value).toBe(updatedQuote.quoteText);
 
         // quote actor changed
-        const actorInput = getByLabelText(editQuoteModal, 'Actor');
+        const actorInput = getByLabelText(editQuoteModal, 'Actor') as HTMLInputElement;
 
         expect(actorInput.value).toBe(quoteFromDb.actor);
 
@@ -311,10 +279,13 @@ describe('quotes editing modals', () => {
             })
         );
 
-        const addQuoteModal = document.querySelector('#add-quote-modal');
+        const addQuoteModal = screen.getByTestId('add-quote-modal');
+
+        // add quote modal is rendered
+        expect(addQuoteModal).toBeInTheDocument();
 
         // quote text changed
-        const quoteTextInput = getByLabelText(addQuoteModal, 'Quote Text');
+        const quoteTextInput = getByLabelText(addQuoteModal, 'Quote Text') as HTMLInputElement;
 
         expect(quoteTextInput.value).toBe('');
 
@@ -325,7 +296,7 @@ describe('quotes editing modals', () => {
         expect(quoteTextInput.value).toBe(newQuote.quoteText);
 
         // quote actor changed
-        const actorInput = getByLabelText(addQuoteModal, 'Actor');
+        const actorInput = getByLabelText(addQuoteModal, 'Actor') as HTMLInputElement;
 
         expect(actorInput.value).toBe('');
 
@@ -335,7 +306,7 @@ describe('quotes editing modals', () => {
 
         expect(actorInput.value).toBe(newQuote.actor);
 
-        const filmSelector = getByTestId(addQuoteModal, 'addQuoteFilmSelector');
+        const filmSelector = getByTestId(addQuoteModal, 'addQuoteFilmSelector') as HTMLSelectElement;
 
         expect(filmSelector.value).toBe('');
 
@@ -367,9 +338,11 @@ describe('quotes editing modals', () => {
 
         // toast shown
         expect(screen.getByText('Quote created')).toBeInTheDocument();
-        const quotesList = document.querySelector('#quotesList');
-
         
+        const quotesList = screen.getByTestId('quotesList');
+
+        expect(quotesList).not.toBeNull()
+
         // quote is updated
         expect(getByText(quotesList, newQuote.quoteText)).toBeInTheDocument();
     });

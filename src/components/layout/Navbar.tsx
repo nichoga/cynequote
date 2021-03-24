@@ -1,12 +1,12 @@
-import React, { useEffect, Fragment } from 'react';
+import { useEffect, Fragment, FC } from 'react';
 import { useLanguageContext } from '../../data/language/useLanguage';
 
-const Navbar = () => {
+const Navbar: FC = () => {
     const {
         currentLanguage,
+        languages,
         setCurrentLanguage,
         getLanguages,
-        languages,
     } = useLanguageContext();
 
     useEffect(() => {

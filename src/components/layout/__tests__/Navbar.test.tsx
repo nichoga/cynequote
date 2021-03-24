@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, ReactElement } from 'react';
 import {
     fireEvent,
     render,
@@ -8,19 +8,19 @@ import {
 import Navbar from '../Navbar';
 import { LanguageContextProvider } from '../../../data/language/useLanguage';
 import { languageDataProvider } from '../../../data/language/languageDataProvider';
-import * as db from '../../../../db.json';
+import { languages } from '../__mocks__/MockData';
 
-const LanguageProvider = ({ children }) => {
+const LanguageProvider: FC = ({ children }) => {
     return <LanguageContextProvider>{children}</LanguageContextProvider>;
 };
 
-const customRender = (ui, options) =>
+const customRender = (ui: ReactElement, options?: any) =>
     render(ui, { wrapper: LanguageProvider, ...options });
 
 const mockGetLanguages = (languageDataProvider.getLanguages = jest.fn());
 
 beforeEach(async () => {
-    mockGetLanguages.mockResolvedValueOnce(db.languages);
+    mockGetLanguages.mockResolvedValueOnce(languages);
 
     await waitFor(() => {
         customRender(<Navbar />);

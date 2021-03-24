@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Quote } from '../../data/models/Quote';
 import QuoteItem from './QuoteItem';
 
-const Quotes = ({ quotes, setCurrent }) => {
+type Props = {
+    quotes: Quote[],
+    setCurrent: (quote: Quote) => void
+}
+
+const Quotes : FC<Props> = ({ quotes, setCurrent }) => {
     return (
-        <ul className="collection with-header" id="quotesList">
+        <ul className="collection with-header" data-testid="quotesList">
             <li className="collection-header">
                 <h4 className="center">Quotes</h4>
             </li>
@@ -12,7 +18,6 @@ const Quotes = ({ quotes, setCurrent }) => {
             ) : (
                 quotes.map((quote) => (
                     <QuoteItem
-                        className="collection-item"
                         key={quote.id}
                         quote={quote}
                         setCurrent={setCurrent}

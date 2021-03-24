@@ -1,21 +1,36 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, Dispatch, FC, SetStateAction, useCallback, useContext, useState } from 'react';
 import { filmDataProvider } from './filmDataProvider';
 import { useLanguageContext } from '../language/useLanguage';
+import { Film } from '../models/Film';
+import { Quote } from '../models/Quote';
 
-const useFilms = () => {
+interface IUseFilms {
+    films: Film[];
+    quotes: Quote[] | undefined;
+    currentFilm: Film | undefined;
+    currentQuote: Quote | undefined;
+    addQuote: (filmId: string, quote: Quote) => Promise<void>;
+    removeQuote: () => Promise<void>;
+    init: () => Promise<void>;
+    updateQuote: (quote: Quote) => Promise<void>;
+    setCurrentFilm: Dispatch<SetStateAction<Film | undefined>>;
+    setCurrentQuote: Dispatch<SetStateAction<Quote | undefined>>;
+}
+
+const useFilms = () : IUseFilms => {
     const { currentLanguage } = useLanguageContext();
 
-    const [films, setFilms] = useState();
-    const [quotes, setQuotes] = useState();
-    const [currentFilm, setCurrentFilm] = useState();
-    const [currentQuote, setCurrentQuote] = useState();
+    const [films, setFilms] = useState<Film[]>([]);
+    const [quotes, setQuotes] = useState<Quote[]>([]);
+    const [currentFilm, setCurrentFilm] = useState<Film>();
+    const [currentQuote, setCurrentQuote] = useState<Quote>();
 
     const lang = currentLanguage?.shortName;
 
     const addQuote = useCallback(
-        async (filmId, quote) => {
+        async (filmId: string, quote: Quote) => {
             const { quote: newQuoute, film } = await filmDataProvider.addQuote({
-                language: lang,
+                language: lang!,
                 filmId,
                 quote,
             });
@@ -39,13 +54,13 @@ const useFilms = () => {
 
     const removeQuote = useCallback(async () => {
         const updatedFilm = await filmDataProvider.removeQuote({
-            language: lang,
-            filmId: currentFilm.id,
-            quoteId: currentQuote.id,
+            language: lang!,
+            filmId: currentFilm!.id,
+            quoteId: currentQuote!.id!,
         });
 
         setQuotes((prevQuotes) => {
-            return prevQuotes.filter((x) => x.id !== currentQuote.id);
+            return prevQuotes.filter((x) => x.id !== currentQuote!.id);
         });
 
         setFilms((prevFilms) => {
@@ -58,7 +73,7 @@ const useFilms = () => {
     const updateQuote = useCallback(
         async (quote) => {
             const updatedQuote = await filmDataProvider.updateQuote({
-                language: lang,
+                language: lang!,
                 quote,
             });
 
@@ -98,9 +113,9 @@ const useFilms = () => {
     };
 };
 
-const FilmContext = createContext();
+const FilmContext = createContext<IUseFilms | undefined>(undefined);
 
-export const FilmContextProvider = ({ children }) => {
+export const FilmContextProvider: FC = ({ children }) => {
     const filmsProps = useFilms();
 
     return (
@@ -111,5 +126,9 @@ export const FilmContextProvider = ({ children }) => {
 };
 
 export const useFilmsContext = () => {
-    return useContext(FilmContext);
+    const ctx =  useContext(FilmContext);
+    if (!ctx) {
+        throw new Error('context is not initialized');
+    }
+    return ctx;
 };

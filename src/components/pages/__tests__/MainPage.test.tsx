@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { FC, ReactElement } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import MainPage from '../MainPage';
 import Navbar from '../../layout/Navbar';
@@ -6,9 +6,9 @@ import { FilmContextProvider } from '../../../data/film/useFilms';
 import { filmDataProvider } from '../../../data/film/filmDataProvider';
 import { LanguageContextProvider } from '../../../data/language/useLanguage';
 import { languageDataProvider } from '../../../data/language/languageDataProvider';
-import * as db from '../../../../db.json';
+import { languages, quotes, films } from '../__mocks__/MockData';
 
-const Providers = ({ children }) => {
+const Providers: FC = ({ children }) => {
     return (
         <LanguageContextProvider>
             <FilmContextProvider>{children}</FilmContextProvider>
@@ -16,7 +16,7 @@ const Providers = ({ children }) => {
     );
 };
 
-const customRender = (ui, options) =>
+const customRender = (ui: ReactElement, options?: any) =>
     render(ui, { wrapper: Providers, ...options });
 
 const mockGetLanguages = (languageDataProvider.getLanguages = jest.fn());
@@ -24,9 +24,9 @@ const mockLoadFilms = (filmDataProvider.loadFilms = jest.fn());
 const mockLoadQuotes = (filmDataProvider.loadQuotes = jest.fn());
 
 beforeEach(async () => {
-    mockGetLanguages.mockResolvedValueOnce(db.languages);
-    mockLoadFilms.mockResolvedValueOnce(db.films_en);
-    mockLoadQuotes.mockResolvedValueOnce(db.quotes_en);
+    mockGetLanguages.mockResolvedValueOnce(languages);
+    mockLoadFilms.mockResolvedValueOnce(films);
+    mockLoadQuotes.mockResolvedValueOnce(quotes);
 
     await waitFor(() => {
         customRender(
@@ -52,15 +52,15 @@ describe('MainPage component', () => {
         expect(mockLoadFilms).toBeCalledTimes(1);
         expect(mockLoadFilms).toHaveBeenCalledWith('en');
         expect(mockLoadQuotes).toBeCalledTimes(1);
-        expect(mockLoadQuotes).toHaveBeenCalledWith('en')
+        expect(mockLoadQuotes).toHaveBeenCalledWith('en');
 
         // films placeholder is not shown
         expect(screen.queryByText('No films to show...')).toBeNull();
 
         // films count is correct
-        expect(screen.getAllByTestId(/film_/)).toHaveLength(db.films_en.length);
+        expect(screen.getAllByTestId(/film_/)).toHaveLength(films.length);
 
-        db.films_en.forEach((film) => {
+        films.forEach((film) => {
             expect(screen.getByText(film.title)).toBeInTheDocument();
         });
     });
@@ -82,9 +82,9 @@ describe('MainPage component', () => {
     });
 
     it('quotes are loaded', async () => {
-        const filmId = 'film_0';
+        const film = films[0];
 
-        const filmEl = screen.getByTestId(filmId);
+        const filmEl = screen.getByTestId(`film_${film.id}`);
 
         fireEvent(
             filmEl,
@@ -96,24 +96,24 @@ describe('MainPage component', () => {
 
         expect(screen.queryByText('Select film to see quotes...')).toBeNull();
 
-        const film = db.films_en.find((x) => x.id === 0);
-
         expect(screen.getAllByTestId(/quote_/)).toHaveLength(
             film.quotes.length
         );
 
         film.quotes.forEach((q) => {
-            const quote = db.quotes_en.find((x) => x.id === q);
+            const quote = quotes.find((x) => x.id === q);
+            if (!quote) throw new Error('testing data is corrupt');
+
             expect(screen.getByText(quote.quoteText)).toBeInTheDocument();
         });
     });
 
     it('other quotes are loaded', async () => {
-        const film0Id = 'film_0';
-        const film1Id = 'film_1'
+        const film0 = films[0];
+        const film1 = films[1];
 
-        const film0El = screen.getByTestId(film0Id);
-        const film1El = screen.getByTestId(film1Id);
+        const film0El = screen.getByTestId(`film_${film0.id}`);
+        const film1El = screen.getByTestId(`film_${film1.id}`);
 
         fireEvent(
             film0El,
@@ -123,10 +123,9 @@ describe('MainPage component', () => {
             })
         );
 
-        const film0 = db.films_en.find((x) => x.id === 0);
-
         film0.quotes.forEach((q) => {
-            const quote = db.quotes_en.find((x) => x.id === q);
+            const quote = quotes.find((x) => x.id === q);
+            if (!quote) throw new Error('testing data is corrupt');
             expect(screen.getByText(quote.quoteText)).toBeInTheDocument();
         });
 
@@ -139,14 +138,14 @@ describe('MainPage component', () => {
         );
 
         film0.quotes.forEach((q) => {
-            const quote = db.quotes_en.find((x) => x.id === q);
+            const quote = quotes.find((x) => x.id === q);
+            if (!quote) throw new Error('testing data is corrupt');
             expect(screen.queryByText(quote.quoteText)).toBeNull();
         });
 
-        const film1 = db.films_en.find((x) => x.id === 1);
-
         film1.quotes.forEach((q) => {
-            const quote = db.quotes_en.find((x) => x.id === q);
+            const quote = quotes.find((x) => x.id === q);
+            if (!quote) throw new Error('testing data is corrupt');
             expect(screen.getByText(quote.quoteText)).toBeInTheDocument();
         });
     });

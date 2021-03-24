@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FC } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { useFilmsContext } from '../../data/film/useFilms'
 
-const EditQuoteModal = () => {
+const EditQuoteModal : FC = () => {
     const { updateQuote, currentQuote } = useFilmsContext();
 
     const [actor, setActor] = useState('');
-    const [quoteText, setQuoteText] = useState(false);
+    const [quoteText, setQuoteText] = useState('');
 
     useEffect(() => {
         if (currentQuote) {
@@ -16,7 +16,7 @@ const EditQuoteModal = () => {
     }, [currentQuote]);
 
     const onSubmit = () => {
-        if (actor === '' || quoteText === '') {
+        if (actor === '' || quoteText === '' || !currentQuote) {
             M.toast({ html: 'Please enter an Actor and Quote Text' });
         } else {
             const updatedQuote = {
@@ -35,7 +35,7 @@ const EditQuoteModal = () => {
     };
 
     return (
-        <div id="edit-quote-modal" className="modal">
+        <div id="edit-quote-modal" data-testid="edit-quote-modal" className="modal">
             <div className="modal-content">
                 <div className="row">
                     <div className="input-field">
